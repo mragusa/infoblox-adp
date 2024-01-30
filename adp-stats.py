@@ -10,9 +10,9 @@ from infoblox_client import objects
 import argparse
 
 parser = argparse.ArgumentParser(
-    prog="Infoblox ADP Script Framework",
-    description="Provides basic python script framework for interacting with ADP",
-    epilog="Edit as needed",
+    prog="Infoblox ADP Statistics",
+    description="Provides ADP Threat Protection Statistics",
+    epilog="Retreieve grid statistics for last 30 mins",
 )
 parser.add_argument("gmhostname")
 parser.add_argument("-u", "--user")

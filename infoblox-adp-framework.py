@@ -13,10 +13,10 @@ parser = argparse.ArgumentParser(
     description="Provides basic python script framework for interacting with ADP",
     epilog="Edit as needed",
 )
-parser.add_argument("gmhostname")
+parser.add_argument("gmhostname", help="Grid Master IP")
 parser.add_argument("-u", "--user")
 parser.add_argument("-p", "--password")
-parser.add_argument("-d", "--debug", action="store_true")
+parser.add_argument("-d", "--debug", action="store_true", help="Enable Debug Mode")
 args = parser.parse_args()
 # for debugging
 if args.debug:

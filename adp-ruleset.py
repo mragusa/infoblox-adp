@@ -31,26 +31,20 @@ grid_tp = conn.get_object(
     "grid:threatprotection",
     return_fields=["current_ruleset", "grid_name", "scheduled_download"],
 )
-# print(grid_tp)
+# print entire grid_tp object if debug
+if args.debug:
+    print(grid_tp)
 for n in grid_tp:
     print("Grid Name: {}".format(n["grid_name"]))
     print("Grid Ruleset: {}".format(n["current_ruleset"]))
-    # if "scheduled_download" in n:
-    # 	print("Grid Scheduled Download: {}".format(n["scheduled_download"]))
-    # else:
-    # 	print("\033[93mNIOS Threat Protection Ruleset Applied Manually \033[00m")
+    if "scheduled_download" in n:
+     	print("Grid Scheduled Download: {}".format(n["scheduled_download"]))
 grid_tp_ruleset = conn.get_object(
     "threatprotection:ruleset",
     return_fields=["used_by", "version", "add_type", "comment"],
 )
-# print(grid_tp_ruleset[0]["add_type"])
 for rs in grid_tp_ruleset:
     print("Add Type: {}".format(rs["add_type"]))
-
-# grid_tp_rulecategory = conn.get_object("threatprotection:rulecategory", return_fields=["name","ruleset"])
-# print(grid_tp_rulecategory)
-# for r in grid_tp_rulecategory:
-# 	print("Ruleset: {} Name: {}".format(r["ruleset"], r["name"]))
 
 grid_tp_rules = conn.get_object(
     "threatprotection:rule",
@@ -64,11 +58,24 @@ grid_tp_rules = conn.get_object(
         "use_disable",
     ],
 )
-# print(grid_tp_rules)
+if args.debug:
+    print(grid_tp_rules)
 for mtpr in grid_tp_rules:
     tunnel = re.search("[tT]unnel", mtpr["rule"])
+    # display only antitunneling or tunneling rules
     if tunnel:
+        # check if rule is disabled or not
         if mtpr["disable"] is True:
-            print( "Member: {}, Rule: {}, Disabled: \033[91m{}\033[00m".format( mtpr["member"], mtpr["rule"], mtpr["disable"]))
+            if mtpr["config"]["log_severity"] == "INFORMATIONAL":
+                print( "\033[94mMember\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: \033[93m{}\033[00m, \033[94mDisabled\033[00m: \033[91m{}\033[00m".format( mtpr["member"], mtpr["rule"], mtpr["config"]["action"],mtpr["config"]["log_severity"], mtpr["disable"]))
+            elif mtpr["config"]["log_severity"] == "MAJOR":
+                print( "\033[94mMember\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: \033[91m{}\033[00m, \033[94mDisabled\033[00m: \033[91m{}\033[00m".format( mtpr["member"], mtpr["rule"], mtpr["config"]["action"],mtpr["config"]["log_severity"], mtpr["disable"]))
+            else:
+                print( "\033[94mMember\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: {}, \033[94mDisabled\033[00m: \033[91m{}\033[00m".format( mtpr["member"], mtpr["rule"], mtpr["config"]["action"],mtpr["config"]["log_severity"], mtpr["disable"]))
         else:
-            print( "Member: {}, Rule: {}, Disabled: {}".format( mtpr["member"], mtpr["rule"], mtpr["disable"]))
+            if mtpr["config"]["log_severity"] == "INFORMATIONAL":
+                print( "\033[94mMember\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: \033[93m{}\033[00m, \033[94mDisabled\033[00m: {}".format( mtpr["member"], mtpr["rule"], mtpr["config"]["action"],mtpr["config"]["log_severity"], mtpr["disable"]))
+            elif mtpr["config"]["log_severity"] == "MAJOR":
+                print( "\033[94mMember\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: \033[91m{}\033[00m, \033[94mDisabled\033[00m: {}".format( mtpr["member"], mtpr["rule"], mtpr["config"]["action"],mtpr["config"]["log_severity"], mtpr["disable"]))
+            else:
+                print( "\033[94mMember\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} \033[94mSeverity\033[00m: {}, \033[94mDisabled\033[00m: {}".format( mtpr["member"], mtpr["rule"], mtpr["config"]["action"],mtpr["config"]["log_severity"], mtpr["disable"]))

@@ -10,8 +10,8 @@ import argparse
 
 parser = argparse.ArgumentParser(
     prog="Infoblox ADP Script Framework",
-    description="Provides basic python script framework for interacting with ADP",
-    epilog="Edit as needed",
+    description="View Current ADP DNS Tunneling Rules",
+    epilog="Provides basic visability in ADP Anti-tunneling Rules",
 )
 parser.add_argument("gmhostname")
 parser.add_argument("-u", "--user")
@@ -36,16 +36,16 @@ grid_tp = conn.get_object(
 if args.debug:
     print(grid_tp)
 for n in grid_tp:
-    print("Grid Name: {}".format(n["grid_name"]))
-    print("Grid Ruleset: {}".format(n["current_ruleset"]))
+    print("\033[94mGrid Name\033[00m: {}".format(n["grid_name"]))
+    print("\033[94mGrid Ruleset\033[00m: {}".format(n["current_ruleset"]))
     if "scheduled_download" in n:
-        print("Grid Scheduled Download: {}".format(n["scheduled_download"]))
+        print("\033[94mGrid Scheduled Download\033[00m: {}".format(n["scheduled_download"]))
 grid_tp_ruleset = conn.get_object(
     "threatprotection:ruleset",
     return_fields=["used_by", "version", "add_type", "comment"],
 )
 for rs in grid_tp_ruleset:
-    print("Add Type: {}".format(rs["add_type"]))
+    print("\033[94mAdd Type\033[00m: {}".format(rs["add_type"]))
 
 grid_tp_rules = conn.get_object(
     "threatprotection:rule",

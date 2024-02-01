@@ -5,7 +5,7 @@ These are a collection of scripts developed to simplify interacting with the Inf
 
 ## Configuring ADP
 >[!NOTE]
->When enabling ADP, the LAN1 port becomes dedicated to DNS traffic. There for each member appliance will need to utilize the mgmt port for ssh/vpn
+>When enabling ADP, the LAN1 port becomes dedicated to DNS traffic. There for each member appliance will need to utilize the mgmt port for SSH/VPN. Manamgenet networks must be on a different subnet than the LAN1 interface.
 
 >[!IMPORTANT]
 >Applying the license and enabling the service will cause a reboot of the appliances. Ensure this will be non-impacting for your end users

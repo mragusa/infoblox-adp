@@ -4,11 +4,11 @@ Infoblox Advanced DNS Protection Scripts
 These are a collection of scripts developed to simplify interacting with the Infoblox ADP product [^1][^2]
 
 ## Configuring ADP
-[!NOTE]
-When enabling ADP, the LAN1 port becomes dedicated to DNS traffic. There for each member appliance will need to utilize the mgmt port for ssh/vpn
+>[!NOTE]
+>When enabling ADP, the LAN1 port becomes dedicated to DNS traffic. There for each member appliance will need to utilize the mgmt port for ssh/vpn
 
-[!IMPORTANT]
-Applying the license and enabling the service will cause a reboot of the appliances. Ensure this will be non-impacting for your end users
+>[!IMPORTANT]
+>Applying the license and enabling the service will cause a reboot of the appliances. Ensure this will be non-impacting for your end users
 
 1. Enable the Threat Protection license on each grid member that will have ADP installed on them
 2. Enable the Threat Protection software update license on each member that has had ADP applied

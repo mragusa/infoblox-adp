@@ -13,8 +13,8 @@ These are a collection of scripts developed to simplify interacting with the Inf
 1. Enable the Threat Protection license on each grid member that will have ADP installed on them
 2. Enable the Threat Protection software update license on each member that has had ADP applied
 3. Download the latest rulesets automatically via the GUI from the appliance. If your appliances are on restricted networks, download the ruleset from https://support.infoblox.com
-[!TIP]
-if monitoring prior to implementing blocking is preferred run the following command on the member appliance cli prior to enabling the service
+>[!TIP]
+>if monitoring prior to implementing blocking is preferred run the following command on the member appliance cli prior to enabling the service
 ```
 set adp monitor-mode on
 ```
@@ -24,6 +24,7 @@ set adp monitor-mode on
 
 ## Scripts
 | Script Name | Purpose |
+| ------------ | -----------------|
 | infoblox-adp-framework.py | basic framework script to jump start development |
 | adp-stats.py | Query the grid for the last 30 mins of threat protection statistics |
 | adp-profile.py | Query, Create and Remove ADP profiles on the Infoblox Grid |

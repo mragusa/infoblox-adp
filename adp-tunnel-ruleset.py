@@ -52,7 +52,7 @@ grid_tp_ruleset = conn.get_object(
 )
 for rs in grid_tp_ruleset:
     print("\033[94mAdd Type\033[00m: {}".format(rs["add_type"]))
-    
+
 if args.grid:
     grid_tp_rules = conn.get_object(
         "threatprotection:rule",
@@ -137,17 +137,36 @@ if args.grid:
                     )
 
 if args.profile:
-    adp_profile_config = conn.get_object("threatprotection:profile", return_fields=["name","members","current_ruleset"])
+    adp_profile_config = conn.get_object(
+        "threatprotection:profile", return_fields=["name", "members", "current_ruleset"]
+    )
     if adp_profile_config:
         if args.debug:
             print(adp_profile_config)
         for profile_config in adp_profile_config:
             print("\033[94mProfile Name\033[00m: {}".format(profile_config["name"]))
-            print("\033[94mAssigned Members\033[00m: {}".format(profile_config["members"]))
-            print("\033[94mAssigned Ruleset\033[00m: {}".format(profile_config["current_ruleset"]))
+            print(
+                "\033[94mAssigned Members\033[00m: {}".format(profile_config["members"])
+            )
+            print(
+                "\033[94mAssigned Ruleset\033[00m: {}".format(
+                    profile_config["current_ruleset"]
+                )
+            )
     else:
         print("No ADP Profiles found")
-    adp_profile_rules = conn.get_object("threatprotection:profile:rule", return_fields=["profile","rule","disable","config","sid","use_config","use_disable"])
+    adp_profile_rules = conn.get_object(
+        "threatprotection:profile:rule",
+        return_fields=[
+            "profile",
+            "rule",
+            "disable",
+            "config",
+            "sid",
+            "use_config",
+            "use_disable",
+        ],
+    )
     if adp_profile_rules:
         for ptpr in adp_profile_rules:
             if args.debug:
@@ -157,15 +176,63 @@ if args.profile:
             if tunnel:
                 if ptpr["disable"] is True:
                     if ptpr["config"]["log_severity"] == "INFORMATIONAL":
-                        print( "\033[94mProfile\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: \033[93m{}\033[00m, \033[94mDisabled\033[00m: \033[91m{}\033[00m".format( ptpr["profile"], ptpr["rule"], ptpr["config"]["action"], ptpr["config"]["log_severity"], ptpr["disable"],))
+                        print(
+                            "\033[94mProfile\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: \033[93m{}\033[00m, \033[94mDisabled\033[00m: \033[91m{}\033[00m".format(
+                                ptpr["profile"],
+                                ptpr["rule"],
+                                ptpr["config"]["action"],
+                                ptpr["config"]["log_severity"],
+                                ptpr["disable"],
+                            )
+                        )
                     elif ptpr["config"]["log_severity"] == "MAJOR":
-                        print( "\033[94mProfile\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: \033[91m{}\033[00m, \033[94mDisabled\033[00m: \033[91m{}\033[00m".format( ptpr["profile"], ptpr["rule"], ptpr["config"]["action"], ptpr["config"]["log_severity"], ptpr["disable"],))
+                        print(
+                            "\033[94mProfile\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: \033[91m{}\033[00m, \033[94mDisabled\033[00m: \033[91m{}\033[00m".format(
+                                ptpr["profile"],
+                                ptpr["rule"],
+                                ptpr["config"]["action"],
+                                ptpr["config"]["log_severity"],
+                                ptpr["disable"],
+                            )
+                        )
                     else:
-                        print( "\033[94mProfile\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: {}, \033[94mDisabled\033[00m: \033[91m{}\033[00m".format( ptpr["profile"], ptpr["rule"], ptpr["config"]["action"], ptpr["config"]["log_severity"], ptpr["disable"],))
+                        print(
+                            "\033[94mProfile\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: {}, \033[94mDisabled\033[00m: \033[91m{}\033[00m".format(
+                                ptpr["profile"],
+                                ptpr["rule"],
+                                ptpr["config"]["action"],
+                                ptpr["config"]["log_severity"],
+                                ptpr["disable"],
+                            )
+                        )
                 else:
                     if ptpr["config"]["log_severity"] == "INFORMATIONAL":
-                        print( "\033[94mProfile\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: \033[93m{}\033[00m, \033[94mDisabled\033[00m: {}".format( ptpr["profile"], ptpr["rule"], ptpr["config"]["action"], ptpr["config"]["log_severity"], ptpr["disable"],))
+                        print(
+                            "\033[94mProfile\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: \033[93m{}\033[00m, \033[94mDisabled\033[00m: {}".format(
+                                ptpr["profile"],
+                                ptpr["rule"],
+                                ptpr["config"]["action"],
+                                ptpr["config"]["log_severity"],
+                                ptpr["disable"],
+                            )
+                        )
                     elif ptpr["config"]["log_severity"] == "MAJOR":
-                        print( "\033[94mProfile\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: \033[91m{}\033[00m, \033[94mDisabled\033[00m: {}".format( ptpr["profile"], ptpr["rule"], ptpr["config"]["action"], ptpr["config"]["log_severity"], ptpr["disable"],))
+                        print(
+                            "\033[94mProfile\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} ,\033[94mSeverity\033[00m: \033[91m{}\033[00m, \033[94mDisabled\033[00m: {}".format(
+                                ptpr["profile"],
+                                ptpr["rule"],
+                                ptpr["config"]["action"],
+                                ptpr["config"]["log_severity"],
+                                ptpr["disable"],
+                            )
+                        )
                     else:
-                        print( "\033[94mProfile\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} \033[94mSeverity\033[00m: {}, \033[94mDisabled\033[00m: {}".format( ptpr["profile"], ptpr["rule"], ptpr["config"]["action"], ptpr["config"]["log_severity"], ptpr["disable"],))
+                        print(
+                            "\033[94mProfile\033[00m: \033[96m{}\033[00m, \033[94mRule\033[00m: {}, \033[94mConfig\033[00m: {} \033[94mSeverity\033[00m: {}, \033[94mDisabled\033[00m: {}".format(
+                                ptpr["profile"],
+                                ptpr["rule"],
+                                ptpr["config"]["action"],
+                                ptpr["config"]["log_severity"],
+                                ptpr["disable"],
+                            )
+                        )

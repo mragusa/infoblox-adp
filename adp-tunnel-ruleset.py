@@ -1,11 +1,14 @@
 #!/usr/bin/python3
+# TODO Fix code duplication
 
 import urllib3
 
 urllib3.disable_warnings()
+
 import re
 from infoblox_client import connector
 from infoblox_client import objects
+
 import argparse
 
 parser = argparse.ArgumentParser(
@@ -19,6 +22,9 @@ parser.add_argument("-p", "--password")
 parser.add_argument("-d", "--debug", action="store_true")
 parser.add_argument("-g", "--grid", action="store_true")
 parser.add_argument("-c", "--profile", action="store_true")
+# TODO Add functionality to enable or disable tunnel rules
+parser.add_argument("-e", "--enable", action="store_true")
+parser.add_argument("-t", "--disable", action="store_true")
 args = parser.parse_args()
 # for debugging
 if args.debug:
@@ -54,17 +60,19 @@ for rs in grid_tp_ruleset:
     print("\033[94mAdd Type\033[00m: {}".format(rs["add_type"]))
 
 if args.grid:
-    grid_tp_rules = conn.get_object(
-        "threatprotection:rule",
-        return_fields=[
-            "member",
-            "sid",
-            "rule",
-            "config",
-            "disable",
-            "use_config",
-            "use_disable",
-        ],
+    rules = conn.get_object(
+        grid_tp_rules=conn.get_object(
+            "threatprotection:rule",
+            return_fields=[
+                "member",
+                "sid",
+                "rule",
+                "config",
+                "disable",
+                "use_config",
+                "use_disable",
+            ],
+        )
     )
     if args.debug:
         print(grid_tp_rules)
@@ -155,17 +163,19 @@ if args.profile:
             )
     else:
         print("No ADP Profiles found")
-    adp_profile_rules = conn.get_object(
-        "threatprotection:profile:rule",
-        return_fields=[
-            "profile",
-            "rule",
-            "disable",
-            "config",
-            "sid",
-            "use_config",
-            "use_disable",
-        ],
+    rules = conn.get_object(
+        adp_profile_rules=conn.get_object(
+            "threatprotection:profile:rule",
+            return_fields=[
+                "profile",
+                "rule",
+                "disable",
+                "config",
+                "sid",
+                "use_config",
+                "use_disable",
+            ],
+        )
     )
     if adp_profile_rules:
         for ptpr in adp_profile_rules:

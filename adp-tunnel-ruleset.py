@@ -60,19 +60,17 @@ for rs in grid_tp_ruleset:
     print("\033[94mAdd Type\033[00m: {}".format(rs["add_type"]))
 
 if args.grid:
-    rules = conn.get_object(
-        grid_tp_rules=conn.get_object(
-            "threatprotection:rule",
-            return_fields=[
-                "member",
-                "sid",
-                "rule",
-                "config",
-                "disable",
-                "use_config",
-                "use_disable",
-            ],
-        )
+    grid_tp_rules = conn.get_object(
+        "threatprotection:rule",
+        return_fields=[
+            "member",
+            "sid",
+            "rule",
+            "config",
+            "disable",
+            "use_config",
+            "use_disable",
+        ],
     )
     if args.debug:
         print(grid_tp_rules)
@@ -163,19 +161,17 @@ if args.profile:
             )
     else:
         print("No ADP Profiles found")
-    rules = conn.get_object(
-        adp_profile_rules=conn.get_object(
-            "threatprotection:profile:rule",
-            return_fields=[
-                "profile",
-                "rule",
-                "disable",
-                "config",
-                "sid",
-                "use_config",
-                "use_disable",
-            ],
-        )
+    adp_profile_rules = conn.get_object(
+        "threatprotection:profile:rule",
+        return_fields=[
+            "profile",
+            "rule",
+            "disable",
+            "config",
+            "sid",
+            "use_config",
+            "use_disable",
+        ],
     )
     if adp_profile_rules:
         for ptpr in adp_profile_rules:

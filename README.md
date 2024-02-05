@@ -31,4 +31,4 @@ set adp monitor-mode on
 | adp-tunnel-ruleset.py  | View current policies on Tunneling/AntiTunneling on the Grid or ADP Profiles |
 
 [^1]: All code uses the infoblox-client module https://github.com/infobloxopen/infoblox-client
-[^2]: All code is styled using black https://github.com/psf/black
+[^2]: [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)

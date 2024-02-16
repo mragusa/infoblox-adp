@@ -16,12 +16,16 @@ parser = argparse.ArgumentParser(
     description="View Current ADP DNS Tunneling Rules",
     epilog="Provides basic visability in ADP Anti-tunneling Rules for Profiles and Grid",
 )
-parser.add_argument("gmhostname")
+parser.add_argument("gmhostname", help="hostname of grid master")
 parser.add_argument("-u", "--user")
 parser.add_argument("-p", "--password")
-parser.add_argument("-d", "--debug", action="store_true")
-parser.add_argument("-g", "--grid", action="store_true")
-parser.add_argument("-c", "--profile", action="store_true")
+parser.add_argument("-d", "--debug", action="store_true", help="enable debugging")
+parser.add_argument(
+    "-g", "--grid", action="store_true", help="show grid adp anti tunneling rules"
+)
+parser.add_argument(
+    "-c", "--profile", action="store_true", help="show profile adp anti tunneling rules"
+)
 # TODO Add functionality to enable or disable tunnel rules
 parser.add_argument("-e", "--enable", action="store_true")
 parser.add_argument("-t", "--disable", action="store_true")

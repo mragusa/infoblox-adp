@@ -34,14 +34,30 @@ conn = connector.Connector(opts)
 # get current profiles
 if args.get:
     existing_adp_profiles = conn.get_object("threatprotection:profile")
+    ruleset = conn.get_object(
+        "grid:threatprotection",
+        return_fields=["current_ruleset", "grid_name", "last_rule_update_version"],
+    )
     # print network view
     if args.debug:
         print(existing_adp_profiles)
     if existing_adp_profiles:
         for existing_profiles in existing_adp_profiles:
-            print(existing_profiles)
+            print("\033[94mProfile:\033[00m {}".format(existing_profiles["name"]))
     else:
         print("No profiles configured")
+
+    if ruleset:
+        for rs in ruleset:
+            print("\033[94mGrid Name:\033[00m {}".format(rs["grid_name"]))
+            print("\033[94mCurrent Ruleset:\033[00m {}".format(rs["current_ruleset"]))
+            print(
+                "\033[94mLast Rule Update:\033[00m {}".format(
+                    rs["last_rule_update_version"]
+                )
+            )
+    else:
+        print("no rulesets configured")
 # create adp profiles
 if args.create:
     ruleset = conn.get_object(

@@ -67,9 +67,10 @@ parser.add_argument(
 )
 parser.add_argument("-v", "--value", help="Domain/IP to add to specified list")
 parser.add_argument("-m", "--messagetype", help="DNS Message Type")
-parser.add_argument(
-    "-f", "--file", help="File containing domains to add to specified list"
-)
+# TODO add ability to utilize file inputs
+#parser.add_argument(
+#    "-f", "--file", help="File containing domains to add to specified list"
+#)
 args = parser.parse_args()
 # for debugging
 if args.debug:

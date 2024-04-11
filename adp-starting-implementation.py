@@ -42,7 +42,13 @@ if args.debug:
     logging.basicConfig(level=logging.DEBUG)
     print("Enabling Debug Output")
 
-opts = {"host": args.gmhostname, "username": args.user, "password": args.password}
+# connection object and configuration
+opts = {
+    "host": args.gmhostname,
+    "username": args.user,
+    "password": args.password,
+    "max_results": 10000,
+}
 conn = connector.Connector(opts)
 
 # retreive existing grid members

@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(
     prog="adp-customlist.py",
     formatter_class=argparse.RawDescriptionHelpFormatter,
     description=" Update ADP Deny Lists for IOS triangulation domains",
-    epilog="For more information vist: https://securelist.com/operation-triangulation/109842/"
+    epilog="For more information vist: https://securelist.com/operation-triangulation/109842/",
 )
 parser.add_argument("gmhostname", help="Grid Master IP")
 parser.add_argument("-u", "--user")

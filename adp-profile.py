@@ -38,7 +38,7 @@ if args.get:
         "grid:threatprotection",
         return_fields=["current_ruleset", "grid_name", "last_rule_update_version"],
     )
-    # print network view
+    # print adp profile
     if args.debug:
         print(existing_adp_profiles)
     if existing_adp_profiles:
@@ -46,7 +46,7 @@ if args.get:
             print("\033[94mProfile:\033[00m {}".format(existing_profiles["name"]))
     else:
         print("No profiles configured")
-
+    # TODO add ability to print members assigned to the profile
     if ruleset:
         for rs in ruleset:
             print("\033[94mGrid Name:\033[00m {}".format(rs["grid_name"]))

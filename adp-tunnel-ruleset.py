@@ -12,7 +12,7 @@ from infoblox_client import objects
 import argparse
 
 parser = argparse.ArgumentParser(
-    prog="Infoblox ADP Script Framework",
+    prog="Infoblox ADP Anti-Tunneling Rulesets",
     description="View Current ADP DNS Tunneling Rules",
     epilog="Provides basic visability in ADP Anti-tunneling Rules for Profiles and Grid",
 )
@@ -39,7 +39,7 @@ if args.debug:
 
 opts = {"host": args.gmhostname, "username": args.user, "password": args.password}
 conn = connector.Connector(opts)
-# get all network_views
+# get all current TP ruleset 
 grid_tp = conn.get_object(
     "grid:threatprotection",
     return_fields=["current_ruleset", "grid_name", "scheduled_download"],

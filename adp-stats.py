@@ -29,9 +29,9 @@ if args.debug:
 
 opts = {"host": args.gmhostname, "username": args.user, "password": args.password}
 conn = connector.Connector(opts)
-# get all network_views
+# get ADP statistics 
 adp_statistics = conn.get_object("threatprotection:statistics")
-# print network view
+# print statistics 
 if args.debug:
     print(adp_statistics)
 sorted_stats = []

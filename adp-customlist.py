@@ -1,12 +1,11 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # TODO add more verbose output
 import urllib3
-
-urllib3.disable_warnings()
-
 from infoblox_client import connector
 from infoblox_client import objects
 import argparse
+
+urllib3.disable_warnings()
 
 parser = argparse.ArgumentParser(
     prog="adp-customlist.py",

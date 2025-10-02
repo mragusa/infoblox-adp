@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import urllib3
 
@@ -29,9 +29,9 @@ if args.debug:
 
 opts = {"host": args.gmhostname, "username": args.user, "password": args.password}
 conn = connector.Connector(opts)
-# get ADP statistics 
+# get ADP statistics
 adp_statistics = conn.get_object("threatprotection:statistics")
-# print statistics 
+# print statistics
 if args.debug:
     print(adp_statistics)
 sorted_stats = []

@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # TODO Fix code duplication
 
 import urllib3
@@ -39,7 +39,7 @@ if args.debug:
 
 opts = {"host": args.gmhostname, "username": args.user, "password": args.password}
 conn = connector.Connector(opts)
-# get all current TP ruleset 
+# get all current TP ruleset
 grid_tp = conn.get_object(
     "grid:threatprotection",
     return_fields=["current_ruleset", "grid_name", "scheduled_download"],
